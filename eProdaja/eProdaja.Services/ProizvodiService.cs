@@ -1,4 +1,5 @@
 ﻿using eProdaja.Model;
+using eProdaja.Services.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,27 @@ namespace eProdaja.Services
 {
     public class ProizvodiService : IProizvodiService
     {
-        List<Proizvodi> prizvodis = new List<Proizvodi>()
+        EProdajaContext _context;
+
+        public ProizvodiService(EProdajaContext context)
         {
-            new Proizvodi()
+            _context = context;
+        }
+
+        List<Model.Proizvodi> proizvodis = new List<Model.Proizvodi>()
+        {
+            new Model.Proizvodi()
             {
-                ProizvodId=1,
-                Naziv="Laptop"
+                ProizvodId = 1,
+                Naziv = "Laptop"
             }
         };
 
-        public IList<Proizvodi> Get()
+        public IList<Model.Proizvodi> Get()
         {
-            return prizvodis;
+            //var list = _context.Proizvodis.ToList();
+
+            return proizvodis;
         }
     }
 }
