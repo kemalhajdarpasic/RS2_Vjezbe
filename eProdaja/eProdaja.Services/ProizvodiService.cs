@@ -1,36 +1,50 @@
-﻿using eProdaja.Model;
+﻿using AutoMapper;
+using eProdaja.Model;
+using eProdaja.Model.Requests;
+using eProdaja.Model.SearchObjects;
 using eProdaja.Services.Database;
+using eProdaja.Services.ProizvodiStateMachine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace eProdaja.Services
 {
-    public class ProizvodiService : IProizvodiService
+    public class ProizvodiService : BaseCRUDService<Model.Proizvodi, Database.Proizvodi, ProizvodiSearchObject, ProizvodiInsertRequest, ProizvodiUpdateRequest>, IProizvodiService
     {
-        EProdajaContext _context;
-
-        public ProizvodiService(EProdajaContext context)
+        public BaseState _baseState { get; set; }
+        public ProizvodiService(BaseState baseState, EProdajaContext context, IMapper mapper) : base(context, mapper)
         {
-            _context = context;
+            _baseState = baseState;
         }
 
-        List<Model.Proizvodi> proizvodis = new List<Model.Proizvodi>()
+        public override Task<Model.Proizvodi> Insert(ProizvodiInsertRequest insert)
         {
-            new Model.Proizvodi()
-            {
-                ProizvodId = 1,
-                Naziv = "Laptop"
-            }
-        };
+            var state = _baseState.CreateState("initial");
 
-        public IList<Model.Proizvodi> Get()
+            return state.Insert(insert);
+        }
+
+        public override async Task<Model.Proizvodi> Update(int id, ProizvodiUpdateRequest update)
         {
-            //var list = _context.Proizvodis.ToList();
+            var entity = await _context.Proizvodis.FindAsync(id);
 
-            return proizvodis;
+            var state = _baseState.CreateState(entity.StateMachine);
+
+            return await state.Update(id,update);
+        }
+
+        public async Task<Model.Proizvodi> Activate(int id)
+        {
+            var entity = await _context.Proizvodis.FindAsync(id);
+
+            var state = _baseState.CreateState(entity.StateMachine);
+
+            return await state.Activate(id);
+
         }
     }
 }

@@ -1,4 +1,6 @@
 using eProdaja.Model;
+using eProdaja.Model.Requests;
+using eProdaja.Model.SearchObjects;
 using eProdaja.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,21 +8,17 @@ namespace eProdaja.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProizvodiController : ControllerBase
+    public class ProizvodiController : BaseCRUDController<Proizvodi,ProizvodiSearchObject,ProizvodiInsertRequest,ProizvodiUpdateRequest>
     {
-        private readonly IProizvodiService _proizvodiService;
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public ProizvodiController(ILogger<WeatherForecastController> logger, IProizvodiService proizvodi)
+        public ProizvodiController(ILogger<BaseCRUDController<Proizvodi, ProizvodiSearchObject, ProizvodiInsertRequest, ProizvodiUpdateRequest>> logger, IProizvodiService proizvodi)
+            :base(logger, proizvodi)
         {
-            _logger = logger;
-            _proizvodiService= proizvodi;
         }
 
-        [HttpGet()]
-        public IEnumerable<Proizvodi> Get()
+        [HttpPut("{id}/activate")]
+        public virtual async Task<Model.Proizvodi> Activate(int id)
         {
-            return _proizvodiService.Get();
+            return await (_service as IProizvodiService).Activate(id);
         }
     }
 }
