@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Azure.Core;
+using EasyNetQ;
 using eProdaja.Model;
 using eProdaja.Model.Requests;
 using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +57,32 @@ namespace eProdaja.Services.ProizvodiStateMachine
             entity.StateMachine = "active";
 
             await _context.SaveChangesAsync();
-            return _mapper.Map<Proizvodi>(entity);
+
+            //var factory = new ConnectionFactory { HostName = "localhost" };
+            //using var connection = factory.CreateConnection();
+            //using var channel = connection.CreateModel();
+
+            //channel.QueueDeclare(queue: "product_added",
+            //                     durable: false,
+            //                     exclusive: false,
+            //                     autoDelete: false,
+            //                     arguments: null);
+
+            //const string message = "Hello World!";
+            //var body = Encoding.UTF8.GetBytes(message);
+
+            //channel.BasicPublish(exchange: string.Empty,
+            //                     routingKey: "product_added",
+            //                     basicProperties: null,
+            //                     body: body);
+
+            var mappedEntity = _mapper.Map<Proizvodi>(entity);
+
+            using var bus = RabbitHutch.CreateBus("host=localhost");
+            
+            bus.PubSub.Publish(mappedEntity);
+
+            return mappedEntity;
         }
 
         public override async Task<List<string>> AllowedActions()

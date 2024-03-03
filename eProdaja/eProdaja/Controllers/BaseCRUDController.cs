@@ -1,6 +1,7 @@
 ﻿using eProdaja.Model;
 using eProdaja.Model.Requests;
 using eProdaja.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eProdaja.Controllers
@@ -19,6 +20,7 @@ namespace eProdaja.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Administrator")]
         public virtual async Task<T> Insert ([FromBody]TInsert insert)
         {
             return await _service.Insert(insert);

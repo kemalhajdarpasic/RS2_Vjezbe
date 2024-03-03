@@ -2,6 +2,7 @@
 using eProdaja.Model.Requests;
 using eProdaja.Model.SearchObjects;
 using eProdaja.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eProdaja.Controllers
@@ -13,6 +14,13 @@ namespace eProdaja.Controllers
         public KorisniciController(ILogger<BaseCRUDController<Model.Korisnici, KorisniciSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>> logger, IKorisniciService service)
             :base(logger,service)
         {
+        }
+
+        [Authorize(Roles ="Administrator")]
+        public override Task<Korisnici> Insert([FromBody] KorisniciInsertRequest insert)
+        {
+            return base.Insert(insert);
+
         }
     }
 }
