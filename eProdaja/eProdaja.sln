@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.Model", "eProdaja.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.Services", "eProdaja.Services\eProdaja.Services.csproj", "{32DD3298-F267-4E44-BED7-9E633AFF5233}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.Subscriber", "eProdaja.Subscriber\eProdaja.Subscriber.csproj", "{54DF8540-88D3-47E3-A951-54B219E5469B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.Subscriber", "eProdaja.Subscriber\eProdaja.Subscriber.csproj", "{54DF8540-88D3-47E3-A951-54B219E5469B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06B56FE1-A76E-44D2-9C8A-989CF4A0F42B}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
