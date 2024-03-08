@@ -28,31 +28,31 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
             ListTile(
               title: Text("Back"),
               onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => LoginPage(),
-                        ),
-                      );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
               },
             ),
             ListTile(
               title: Text("Proizvodi"),
               onTap: () {
-                   Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const ProductListScreen(),
-                        ),
-                      );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProductListScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
               title: Text("Detalji"),
               onTap: () {
-                   Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const ProductDetailScreen(),
-                        ),
-                      );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailScreen(),
+                  ),
+                );
               },
             )
           ],

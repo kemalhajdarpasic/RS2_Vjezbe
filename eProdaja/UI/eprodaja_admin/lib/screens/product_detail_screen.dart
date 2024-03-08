@@ -1,8 +1,10 @@
+import 'package:eprodaja_admin/models/product.dart';
 import 'package:eprodaja_admin/widget/master_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({super.key});
+  Product? product;
+  ProductDetailScreen({super.key, this.product});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -13,7 +15,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return MasterScreenWidget(
       child: Text("Details"),
-      title: "Product Datails",
+      title: this.widget.product?.naziv ?? "Product Datails",
     );
   }
 }
