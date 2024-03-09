@@ -1,4 +1,6 @@
+import 'package:eprodaja_admin/providers/jedinice_mjere.dart';
 import 'package:eprodaja_admin/providers/product_provider.dart';
+import 'package:eprodaja_admin/providers/vrste_proizvoda.dart';
 import 'package:eprodaja_admin/utils/util.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +9,11 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => ProductProvider())],
+    providers: [
+      ChangeNotifierProvider(create: (_) => ProductProvider()),
+      ChangeNotifierProvider(create: (_) => JediniceMjereProvider()),
+      ChangeNotifierProvider(create: (_) => VrsteProizvodaProvider()),
+    ],
     child: const MyMatirialApp(),
   ));
 }
@@ -184,13 +190,17 @@ class LoginPage extends StatelessWidget {
                           ),
                         );
                       } on Exception catch (e) {
-                        showDialog(context: context, builder: (BuildContext context) => AlertDialog(
-                          title: Text("Error"),
-                          content: Text(e.toString()),
-                          actions: [
-                            TextButton(onPressed: ()=>Navigator.pop(context), child: Text("Ok"))
-                          ],
-                        ));
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text("Error"),
+                                  content: Text(e.toString()),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("Ok"))
+                                  ],
+                                ));
                       }
                     },
                     child: Text("Login"))

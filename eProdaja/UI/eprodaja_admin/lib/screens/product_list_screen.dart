@@ -72,7 +72,22 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 });
                 //print("data: ${data.result[0].naziv}");
               },
-              child: Text("Pretraga"))
+              child: Text("Pretraga")),
+          SizedBox(
+            width: 8,
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailScreen(
+                      product: null,
+                    ),
+                  ),
+                );
+                //print("data: ${data.result[0].naziv}");
+              },
+              child: Text("Dodaj")),
         ],
       ),
     );
