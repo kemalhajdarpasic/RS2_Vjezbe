@@ -32,5 +32,11 @@ namespace eProdaja.Controllers
         {
             return await (_service as IProizvodiService).AllowedActions(id);
         }
+
+        [HttpGet("{id}/recommend")]
+        public virtual List<Model.Proizvodi> Recommend(int id)
+        {
+            return (_service as IProizvodiService).Recommend(id);
+        }
     }
 }

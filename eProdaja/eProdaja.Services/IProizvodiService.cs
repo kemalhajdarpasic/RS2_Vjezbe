@@ -14,5 +14,6 @@ namespace eProdaja.Services
         Task<Proizvodi> Activate(int id);
         Task<Proizvodi> Hide(int id);
         Task<List<string>> AllowedActions(int id);
+        List<Model.Proizvodi> Recommend(int id);
     }
 }
